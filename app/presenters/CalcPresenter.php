@@ -20,12 +20,23 @@ class CalcPresenter extends BasePresenter
 	{
 		$form = new AppForm($this, 'mainForm');
 		
-		$form->addSubmit('ok', '✔ Jdi do toho');
-		$form->onSubmit[] = callback($this, 'analysisFormSubmitted');
+		// years
+		$current = (int)date('Y');
+		$years = array(
+			$current,
+			($current - 1),
+		);
+		$form->addSelect('year', 'Rok:', $years)->setDefaultValue(((int)date('n') <= 3)? $current - 1 : $current);
+		
+		$form->addSubmit('ok', 'Jdi do toho, nebojím se!');
+		$form->onSubmit[] = callback($this, 'mainFormSubmitted');
 		return $form;
 	}
 	
-	protected 
+	public function mainFormSubmitted(Form $form)
+	{
+		$this->redirect('this');
+	}
 	
 	public function renderDefault()
 	{
