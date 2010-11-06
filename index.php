@@ -1,14 +1,19 @@
 <?php
-/**
- * Init.
- *
- * @author Jan Javorek <honza@javorek.net>
- * @copyright Copyright (c) 2010 Jan Javorek
- */
 
-function __autoload($className) {
-	include_once dirname(__FILE__) . "/app/$className.php";
-}
+// the identification of this site
+define('SITE', 'FakturoidCalc');
 
-$app = new Application;
-$app->run();
+// absolute filesystem path to the web root
+define('WWW_DIR', dirname(__FILE__));
+
+// absolute filesystem path to the application root
+define('APP_DIR', WWW_DIR . '/app');
+
+// absolute filesystem path to the libraries
+define('LIBS_DIR', APP_DIR . '/libs');
+
+// absolute filesystem path to the temporary files
+define('TEMP_DIR', APP_DIR . '/temp');
+
+// load bootstrap file
+require APP_DIR . '/bootstrap.php';
