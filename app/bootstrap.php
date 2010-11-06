@@ -1,4 +1,5 @@
 <?php
+
 /**
  * FakturoidCalc bootstrap file.
  *

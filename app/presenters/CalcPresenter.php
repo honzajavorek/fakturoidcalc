@@ -16,6 +16,17 @@
 class CalcPresenter extends BasePresenter
 {
 
+	protected function createComponentMainForm()
+	{
+		$form = new AppForm($this, 'mainForm');
+		
+		$form->addSubmit('ok', '✔ Jdi do toho');
+		$form->onSubmit[] = callback($this, 'analysisFormSubmitted');
+		return $form;
+	}
+	
+	protected 
+	
 	public function renderDefault()
 	{
 		

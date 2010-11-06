@@ -7,33 +7,6 @@
  */
 final class Application {
 	
-	public function __construct() {
-		try {
-			$req = new RequirementsChecker();
-			$req->checkPHPVersion('5.2.0');
-			$req->checkPHPExtension('curl');
-		} catch (RequirementsException $e) {
-			echo 'Req fail.'; // TODO
-		}
-	}
-	
-	private function renderTemplate($name, array $params = array()) {
-		extract($params);
-		include dirname(__FILE__) . '/../tpl/' . $name;
-	}
-	
-	public function run() {
-		$this->renderTemplate('header.tpl.php');
-		
-		if (!empty($_POST)) {
-			$this->process();
-		} else {
-			$this->renderForm();
-		}
-		
-		$this->terminate();
-	}
-	
 	private function renderForm($errors = array()) {
 		// years
 		$current = (int)date('Y');
@@ -61,10 +34,6 @@ final class Application {
 			'years' => $years,
 			'expenses' => $expenses,
 		));
-	}
-	
-	private function renderError($message) {
-		$this->renderTemplate('error.tpl.php', array('message' => $message));
 	}
 	
 	private function process() {
