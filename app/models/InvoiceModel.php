@@ -82,7 +82,7 @@ class InvoiceModel extends Object
 			
 			CURLOPT_SSL_VERIFYPEER => TRUE, // HTTPS, certificate
 			CURLOPT_SSL_VERIFYHOST => 2,
-			CURLOPT_CAINFO => Resources::get('fakturoid.crt'),
+			CURLOPT_CAINFO => dirname(__FILE__) . '/fakturoid.crt',
 		));
 		$response = curl_exec($c);
 		if ($response === FALSE) {

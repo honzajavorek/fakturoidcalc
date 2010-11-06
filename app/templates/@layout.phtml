@@ -15,6 +15,17 @@
 <body>
 	{foreach $flashes as $flash}<div class="flash {$flash->type}">{$flash->message}</div>{/foreach}
 
+	<h1>FakturoidCalc</h1>
+	<p>
+		Jsem malinký robot, který si povídá s <a href="http://www.fakturoid.cz">Fakturoidem</a> a pokouší se spočítat,
+		kolik asi zaplatíš na daních státu. Sestavil mě <a href="http://twitter.com/littlemaple">Honza Javorek</a>.
+		Jsem úplně bez záruky &ndash; pamatuj, že ani robot není neomylný.
+		Neukládám nic z toho, co mnou proteče. Pokud tomu nevěříš, koukni se na <a href="https://github.com/Littlemaple/FakturoidCalc">mě přes rentgen</a>.
+	</p>
+
 	{include #content}
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="{$basePath}/js/main.js"></script>
 </body>
 </html>
