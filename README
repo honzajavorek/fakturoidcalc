@@ -1,0 +1,21 @@
+FakturoidCalc
+=============
+
+FakturoidCalc is a little robot extending www.fakturoid.cz. It looks at your
+invoices via Fakturoid API and tries to calculate all the crap our country
+(Czech Republic) demands.
+
+Requirements
+------------
+
+Nette Framework requires PHP 5.2.0 or higher + curl extension.
+
+Author
+------
+
+Jan Javorek <honza@javorek.net>, no warranty.
+
+License
+-------
+
+Look into license directory.
