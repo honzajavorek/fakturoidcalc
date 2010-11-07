@@ -9,11 +9,11 @@
 
 
 /**
- * Provides data from invoices.
+ * Provides Fakturoid data.
  *
  * @author Jan Javorek <honza@javorek.net>
  */
-class InvoiceModel extends Object
+class FakturoidModel extends Object
 {
 	/**
 	 * @var string
@@ -40,16 +40,25 @@ class InvoiceModel extends Object
 		$this->apiKey = $apiKey;
 	}
 	
+	/**
+	 * Remote XML XPath provider.
+	 * 
+	 * @param $fileName
+	 * @return DOMXPath
+	 */
 	protected function getFile($fileName)
 	{
-		if (isset($this->fileCache[$fileName])) {
+		if (!empty($this->fileCache[$fileName])) {
 			return $this->fileCache[$fileName];
 		}
 		$xml = $this->fetch($fileName);
 		
 		$doc = new DOMDocument();
-		$doc->load($xml);
-		$this->fileCache[$fileName] = new DOMXPath($doc);
+		$doc->loadXML($xml);
+		$this->fileCache[$fileName] = (object)array(
+			'doc' => $doc,
+			'xpath' => new DOMXPath($doc),
+		);
 		return $this->fileCache[$fileName];
 	}
 	
@@ -68,6 +77,10 @@ class InvoiceModel extends Object
 	{
 		$username = $this->username;
 		$apiKey = $this->apiKey;
+		
+		if (!$username || !$apiKey) {
+			throw new InvalidArgumentException('Username or API key missing.');
+		}
 		
 		$error = NULL;
 		
@@ -95,4 +108,20 @@ class InvoiceModel extends Object
 		return $response;
 	}
 	
+	/**
+	 * Counts total income for given year.
+	 * 
+	 * @param $year
+	 * @return float
+	 */
+	public function getIncome($year)
+	{
+		$total = 0;
+		$page = 1;
+		while($this->getFile("invoices.xml?page=$page")->xpath->evaluate("count(//invoice[starts-with(issued-on, '$year')])")) {
+			$total += $this->getFile("invoices.xml?page=$page")->xpath->evaluate("sum(//invoice[starts-with(issued-on, '$year')]/total)");
+			$page++;
+		}
+		return $total;
+	}
 }

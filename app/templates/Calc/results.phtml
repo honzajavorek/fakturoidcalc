@@ -6,3 +6,52 @@
 </ol>
 
 <h2>2. Výsledky mého počítání</h2>
+
+<h3>Daně</h3>
+<table>
+	<tr>
+		<th>Příjmy:</th>
+		<td>{$taxes['income']|currency}</td>
+	</tr>
+	<tr>
+		<th>Výdaje:</th>
+		<td>{$taxes['expenses']|currency} ({$options['expenses']} % příjmů)</td>
+	</tr>
+	<tr>
+		<th>Zisk:</th>
+		<td>{$taxes['profit']|currency}</td>
+	</tr>
+	<tr>
+		<th>Daň:</th>
+		<td>{$taxes['tax']|currency} ({$options['tax']} % z {$taxes['taxBase']|currency})</td>
+	</tr>
+	<tr>
+		<th>Daň po slevách:</th>
+		<td>{$taxes['finalTax']|currency} ({$taxes['reducedTax']|currency})</td>
+	</tr>
+</table>
+
+<h3>VZP</h3>
+<table>
+	<tr>
+		<th>Pojištění za {$options['year']}:</th>
+		<td>{$health['insurance']|currency}</td>
+	</tr>
+	<tr>
+		<th>Zálohy na {=$options['year'] + 1}:</th>
+		<td>{$health['deposit']|currency}</td>
+	</tr>
+</table>
+
+<h3>ČSSZ</h3>
+<table>
+	<tr>
+		<th>Pojištění za {$options['year']}:</th>
+		<td>{$social['insurance']|currency}</td>
+	</tr>
+	<tr>
+		<th>Zálohy na {=$options['year'] + 1}:</th>
+		<td>{$social['deposit']|currency}</td>
+	</tr>
+</table>
+

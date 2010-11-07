@@ -20,14 +20,12 @@ abstract class BasePresenter extends Presenter
 	{
 		parent::startup();
 		$this->checkRequirements();
+		
+		$this->template->registerHelper('currency', 'Helpers::currency');
 	}
 	
 	private function checkRequirements()
 	{
-		$version = '5.2.0';
-		if (version_compare(PHP_VERSION, $version, '<')) {
-			throw new InvalidStateException("Your PHP version number is less than required: $version.");
-		}
 		if (!extension_loaded('curl')) {
 			throw new InvalidStateException("Extension 'curl' not present in your PHP installation.");
 		}

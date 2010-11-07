@@ -15,7 +15,6 @@
  */
 class CalcPresenter extends BasePresenter
 {
-
 	protected function createComponentMainForm()
 	{
 		$form = new AppForm($this, 'mainForm');
@@ -42,8 +41,11 @@ class CalcPresenter extends BasePresenter
 			30 => '30 %',
 		));
 		
-		// student
-		$form->addCheckbox('student', 'Student:');
+		// employment form
+		$form->addSelect('employmentForm', 'Forma zaměstnání:', array(
+			'full' => 'Normální příjem',
+			'student' => 'Student',
+		));
 		
 		// defaults
 		$calc = new Calculator;
@@ -59,9 +61,12 @@ class CalcPresenter extends BasePresenter
 		$options = $form->getValues();
 		$calc = new Calculator($options);
 		
-		// TODO calculation
+		$this->template->options = $calc->getOptions();
+		$this->template->taxes = $calc->calculateTaxes();
+		$this->template->health = $calc->calculateHealthInsurance();
+		$this->template->social = $calc->calculateSocialInsurance();
 		
-		$this->redirect('Calc:results');
+		$this->setView('results');
 	}
 	
 	public function renderDefault()
