@@ -79,7 +79,7 @@ class FakturoidModel
 		$apiKey = $this->apiKey;
 		
 		if (!$username || !$apiKey) {
-			throw new InvalidArgumentException('Username or API key missing.');
+			throw new Exception('Chybí uživatelské jméno nebo API klíč.');
 		}
 		
 		$error = NULL;
@@ -103,7 +103,7 @@ class FakturoidModel
 		}
 		curl_close($c);
 		if ($error) {
-			throw new IOException($error);
+			throw new Exception($error);
 		}
 		return $response;
 	}

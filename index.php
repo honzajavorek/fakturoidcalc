@@ -93,7 +93,7 @@ if (!$param) {
 	
 <?php
 	} catch (Exception $e) {
-		echo '<p style="background: #8B0000; padding: 1em;"><strong style="color: #FFF;">[ERROR] ' . $e->getMessage() . '</strong></p>';
+		echo '<p style="background: #8B0000; padding: 1em;"><strong style="color: #FFF;">[CHYBA] ' . $e->getMessage() . '</strong></p>';
 	}
 }
 
