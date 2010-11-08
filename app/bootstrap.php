@@ -1,33 +1,25 @@
 <?php
 
 /**
- * FakturoidCalc bootstrap file.
+ * Bootstrap file
  *
  * @author Jan Javorek <honza@javorek.net>
  * @copyright Copyright (c) 2010 Jan Javorek
  */
 
-require LIBS_DIR . '/Nette/loader.php';
+// requirements
+if (!extension_loaded('curl')) {
+	throw new Exception("Abych správně fungoval, musíš mít v PHP nainstalované 'curl'.");
+}
 
-Debug::$strictMode = TRUE;
-Debug::enable();
+// autoload
+function __autoload($class)
+{
+	include_once dirname(__FILE__) . '/' . $class . '.php';
+}
 
-Environment::loadConfig();
-
-$application = Environment::getApplication();
-$application->errorPresenter = 'Error';
-
-$router = $application->getRouter();
-
-$router[] = new Route('index.php', array(
-	'presenter' => 'Calc',
-	'action' => 'default',
-), Route::ONE_WAY);
-
-$router[] = new Route('<presenter>/<action>/<id>', array(
-	'presenter' => 'Calc',
-	'action' => 'default',
-	'id' => NULL,
-));
-
-$application->run();
+// helpers
+function dump($var)
+{
+	var_dump($var);
+}

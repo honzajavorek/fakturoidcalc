@@ -13,7 +13,7 @@
  *
  * @author Jan Javorek <honza@javorek.net>
  */
-class FakturoidModel extends Object
+class FakturoidModel
 {
 	/**
 	 * @var string

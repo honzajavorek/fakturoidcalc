@@ -1,0 +1,68 @@
+#!/usr/bin/php
+
+FakturoidCalc
+=============
+
+Jsem malinký skript, který si povídá s http://www.fakturoid.cz a pokouší se spočítat,
+kolik jako OSVČ asi zaplatíš na daních státu. Sestavil mě http://twitter.com/littlemaple
+a jsem úplně bez záruky - pamatuj, že ani robot není neomylný. Moje rentgenové snímky jsou
+veřejné zde: https://github.com/Littlemaple/FakturoidCalc
+
+<?php
+require dirname(__FILE__) . '/app/bootstrap.php';
+$param = (empty($_SERVER['argv'][1]))? NULL : $_SERVER['argv'][1];
+
+$tpl = new Template;
+if (!$param) {
+?>
+Dostupné konfigurace
+--------------------
+
+<?php if (!count($tpl->getFiles())): ?>
+[SMŮLA] Ve složce 'data' není dostupná žádná konfigurace.
+<?php else: ?>
+<?php foreach ($tpl->getFiles() as $file): ?>
+- <?php echo $file . "\n" ?>
+<?php endforeach ?>
+<?php endif ?>
+
+Vyber si konfiguraci a spusť program následovně:
+    $ ./fakturoidcalc konfigurace.ini
+
+<?php
+} else {
+	try {
+		
+		$app = new Calculator($param);
+		$data = $app->run();
+?>
+	
+Výsledky mého počítání
+----------------------
+
+Daně:
+
+Příjmy              <?php echo $tpl->currency($data['income']) . "\n" ?>
+Výdaje              <?php echo $tpl->currency($data['expenses']) ?> (<?php echo $data['cfg']['expenses_percent'] ?> % příjmů)
+Zisk                <?php echo $tpl->currency($data['profit']) . "\n" ?>
+Daň                 <?php echo $tpl->currency($data['taxes']['tax']) ?> (<?php echo $data['cfg']['taxes']['percent'] ?> % z <?php echo $tpl->currency($data['taxes']['base']) ?>)
+Daň po slevách      <?php echo $tpl->currency($data['taxes']['finalTax']) ?> (<?php echo $tpl->currency($data['taxes']['reducedTax']) ?>)
+
+VZP:
+
+Pojištění za <?php echo $data['cfg']['year'] ?>   <?php echo $tpl->currency($data['health_insurance']['insurance']) . "\n" ?>
+Zálohy na <?php echo $data['cfg']['year'] + 1 ?>      <?php echo $tpl->currency($data['health_insurance']['deposit']) . "\n" ?>
+
+ČSSZ:
+
+Pojištění za <?php echo $data['cfg']['year'] ?>   <?php echo $tpl->currency($data['social_insurance']['insurance']) . "\n" ?>
+Zálohy na <?php echo $data['cfg']['year'] + 1 ?>      <?php echo $tpl->currency($data['social_insurance']['deposit']) . "\n" ?>
+	
+<?php
+		exit(0);
+
+	} catch (Exception $e) {
+		echo "\n[CHYBA] " . $e->getMessage() . "\n\n";
+		exit(1);
+	}
+}
