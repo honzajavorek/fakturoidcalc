@@ -75,7 +75,7 @@ class Calculator
 		$percent = $this->cfg['health_insurance']['percent'];
 		
 		$minBaseMonthCount = ($isStudent)? 0 : 12;
-		$base = min(max($results['profit'] * 0.5, $minBaseMonthCount * $this->cfg['health_insurance']['min_base']), $this->cfg['health_insurance']['max_base']);
+		$base = min(max($results['profit'], $minBaseMonthCount * $this->cfg['health_insurance']['min_base']), $this->cfg['health_insurance']['max_base']);
 		$results['health_insurance']['base'] = ($base < 0)? 0 : $base;
 		$results['health_insurance']['insurance'] = $percent * $results['health_insurance']['base'];
 		
