@@ -6,7 +6,7 @@ FakturoidCalc
 Jsem malinký skript, který si povídá s http://www.fakturoid.cz a pokouší se spočítat,
 kolik jako OSVČ asi zaplatíš na daních státu. Sestavil mě http://twitter.com/littlemaple
 a jsem úplně bez záruky - pamatuj, že ani robot není neomylný. Moje rentgenové snímky jsou
-veřejné zde: https://github.com/Littlemaple/FakturoidCalc
+veřejné zde: https://github.com/honzajavorek/fakturoidcalc
 
 <?php
 require dirname(__FILE__) . '/app/bootstrap.php';
@@ -32,11 +32,11 @@ Vyber si konfiguraci a spusť program následovně:
 <?php
 } else {
 	try {
-		
+
 		$app = new Calculator($param);
 		$data = $app->run();
 ?>
-	
+
 Výsledky mého počítání
 ----------------------
 
@@ -57,7 +57,7 @@ Zálohy na <?php echo $data['cfg']['year'] + 1 ?>      <?php echo $tpl->currency
 
 Pojištění za <?php echo $data['cfg']['year'] ?>   <?php echo $tpl->currency($data['social_insurance']['insurance']) . "\n" ?>
 Zálohy na <?php echo $data['cfg']['year'] + 1 ?>      <?php echo $tpl->currency($data['social_insurance']['deposit']) . "\n" ?>
-	
+
 <?php
 		exit(0);
 
