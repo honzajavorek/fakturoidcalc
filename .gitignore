@@ -1,5 +1,4 @@
-/.buildpath
-/.project
-/.settings
-/app/temp/*
-/log/*
+
+# Temporary and logging files
+app/temp/*
+log/*
