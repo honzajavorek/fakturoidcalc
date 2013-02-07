@@ -1,7 +1,6 @@
-
 # FakturoidCalc
 
-FakturoidCalc is a little script extending [@fakturoid](https://github.com/fakturoid/). It looks at your invoices via Fakturoid API and tries to calculate all the crap our country (Czech Republic) demands.
+FakturoidCalc is a little script extending [Fakturoid](https://github.com/fakturoid/). It looks at your invoices via Fakturoid API and tries to calculate all the crap our country (Czech Republic) demands.
 
 ## Status: IDLE
 
